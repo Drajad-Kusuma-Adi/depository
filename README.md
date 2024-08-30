@@ -1,0 +1,1 @@
+# Depository: Online Shop Project for Home Furnitures, Necessities, and Decor
