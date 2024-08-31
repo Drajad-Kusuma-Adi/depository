@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
 
+// List of colors used in the app
 const colors: Record<string, string> = {
   transparent: "transparent",
   white: "#FFFFFF",
@@ -39,7 +40,11 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
     : { r: 0, g: 0, b: 0 };
 }
 
-export function Ripple(e: React.MouseEvent<HTMLButtonElement>, button: HTMLButtonElement, bgColor: string) {
+export function Ripple(
+  e: React.MouseEvent<HTMLButtonElement>,
+  button: HTMLButtonElement,
+  bgColor: string,
+) {
   // Create the ripple element
   const ripple = document.createElement("span");
   ripple.className = `ripple`;

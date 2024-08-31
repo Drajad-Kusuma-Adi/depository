@@ -1,36 +1,28 @@
 import React from "react";
 import { Button, Ripple } from "./Components";
 
-function Slide({
-  img,
-  children,
-}: {
-  img: string,
-  children: React.ReactNode,
-}) {
+function Slide({ img, children }: { img: string; children: React.ReactNode }) {
   const slideRef = React.useRef<HTMLButtonElement | null>(null);
   return (
     <>
       <button
         ref={slideRef}
         style={{
-          overflow: 'hidden',
+          overflow: "hidden",
           backgroundImage: `url(${img})`,
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          width: '24rem',
-          height: '12rem',
-          position: 'relative',
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          width: "24rem",
+          height: "12rem",
+          position: "relative",
           borderRadius: "8px",
         }}
         onClick={(e) => {
-          Ripple(e, slideRef.current!, '#FFFFFF')
+          Ripple(e, slideRef.current!, "#FFFFFF");
         }}
       >
-        <p className="text-white absolute start-4 bottom-4">
-          {children}
-        </p>
+        <p className="text-white absolute start-4 bottom-4">{children}</p>
       </button>
     </>
   );
@@ -53,9 +45,13 @@ export default function App() {
 
           {/* These are put on sidebar on mobile */}
           <div className="flex items-center space-x-2">
-            <span className="hidden lg:block"><Button color="primary" textColor="white">Help</Button></span>
-            <Button img="Person.svg"><span className="hidden lg:block">Account</span></Button>
-            <Button img="Bag.svg"><span className="hidden lg:block">Shopping</span></Button>
+            {/* <span className="hidden lg:block"><Button color="primary" textColor="white">Bantuan</Button></span> */}
+            <Button img="Person.svg">
+              <span className="hidden lg:block">Akun</span>
+            </Button>
+            <Button img="Bag.svg">
+              <span className="hidden lg:block">Belanja</span>
+            </Button>
           </div>
         </div>
 
@@ -75,7 +71,7 @@ export default function App() {
             <input
               ref={searchRef}
               type="text"
-              placeholder="Search..."
+              placeholder="Cari produk..."
               className="px-4 py-2 border-0 rounded-full focus:outline-none w-full"
             />
 
@@ -91,30 +87,30 @@ export default function App() {
       {/* Main content */}
       <main className="w-full flex justify-center p-8">
         <div className="container">
-
-        <br />
+          <br />
 
           {/* Slides */}
           <div className="flex space-x-4 w-full">
-          {
-            [
+            {[
               {
-                img: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1298&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                text: 'Clothing and Shoes'
+                img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1298&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                text: "Fashion dan Sepatu",
               },
 
               {
-                img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                text: 'Home and Living'
+                img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                text: "Perabotan Interior",
               },
 
               {
-                img: 'https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                text: 'Art and Decor'
-              }
-            ]
-            .map((item, index) => <Slide key={index} img={item.img} >{item.text}</Slide>)
-          }
+                img: "https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                text: "Seni dan Dekorasi",
+              },
+            ].map((item, index) => (
+              <Slide key={index} img={item.img}>
+                {item.text}
+              </Slide>
+            ))}
           </div>
         </div>
       </main>
