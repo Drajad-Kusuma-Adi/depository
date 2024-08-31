@@ -15,7 +15,9 @@ export default function App() {
           <h1 className="text-primary font-bold text-2xl">Depository</h1>
 
           <div className="flex items-center space-x-2">
-            <Button color="primary" textColor="white">Help</Button>
+            <Button color="primary" textColor="white">
+              Help
+            </Button>
             <Button img="Person.svg">Account</Button>
             <Button img="Bag.svg">Shopping</Button>
           </div>
@@ -25,11 +27,15 @@ export default function App() {
         <div className="flex space-x-4">
           <Button color="white" img="Filter.svg" />
 
-          <form className="flex w-full items-center px-4 py-2 space-x-4 bg-white rounded-full hover:cursor-text text-sm relative" onClick={() => {
-              if (!categoryRef.current?.contains(event.target)) { // Deprecation is just a suggestion
+          <form
+            className="flex w-full items-center px-4 py-2 space-x-4 bg-white rounded-full hover:cursor-text text-sm relative"
+            onClick={() => {
+              if (!categoryRef.current?.contains(event.target)) {
+                // Deprecation is just a suggestion
                 searchRef.current?.focus();
               }
-          }}>
+            }}
+          >
             <select
               ref={categoryRef}
               className="px-4 py-1 bg-gray-200 border-r-[12px] border-gray-200 rounded-full focus:outline-none hover:cursor-pointer transition duration-300 hover:bg-gray-300 hover:border-gray-300"
@@ -46,20 +52,20 @@ export default function App() {
               className="px-4 py-2 border-0 rounded-full focus:outline-none"
             />
 
-            <img src="Search.svg" alt="Search icon" className="size-6 opacity-50 absolute end-4" />
+            <img
+              src="Search.svg"
+              alt="Search icon"
+              className="size-6 opacity-50 absolute end-4"
+            />
           </form>
         </div>
       </header>
 
       {/* Main content */}
-      <main className="">
-
-      </main>
+      <main className=""></main>
 
       {/* Footer */}
-      <footer className="">
-
-      </footer>
+      <footer className=""></footer>
     </>
-  )
+  );
 }
