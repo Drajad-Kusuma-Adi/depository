@@ -22,8 +22,44 @@ function Slide({ img, children }: { img: string; children: React.ReactNode }) {
           Ripple(e, slideRef.current!, "#FFFFFF");
         }}
       >
-        <p className="text-white absolute start-4 bottom-4">{children}</p>
+        <h1 className="text-white text-lg absolute start-4 bottom-4 font-bold">
+          {children}
+        </h1>
       </button>
+    </>
+  );
+}
+
+function Product({
+  img,
+  price,
+  children,
+}: {
+  img: string;
+  price: number;
+  children?: React.ReactNode;
+}) {
+  const priceFormatted = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(price);
+
+  return (
+    <>
+      <div className="w-48 rounded-lg overflow-hidden shadow-lg">
+        <img className="w-full h-64" src={img} alt="Product card" />
+        <div className="p-4">
+          <h1 className="mb-2">{children}</h1>
+          <h4 className="text-lg font-medium mb-2 text-wrap">
+            {priceFormatted}
+          </h4>
+        </div>
+        <div className="p-4">
+          <Button xcss={{ width: "100%" }} color="primary" textColor="white">
+            Beli
+          </Button>
+        </div>
+      </div>
     </>
   );
 }
@@ -88,29 +124,96 @@ export default function App() {
       <main className="w-full flex justify-center p-8">
         <div className="container">
           {/* Slides */}
-          <div className="grid grid-cols-12">
-            {[
-              {
-                img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1298&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                text: "Fashion dan Sepatu",
-              },
+          <div className="mb-16">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold mb-2">Editor Choices</h2>
+              <h4 className="text-sm opacity-50">
+                Produk paling berkualitas, kami jamin!
+              </h4>
+            </div>
+            <div className="grid gap-4 grid-cols-12">
+              {[
+                {
+                  img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1298&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  text: "Fashion dan Sepatu",
+                },
 
-              {
-                img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                text: "Perabotan Interior",
-              },
+                {
+                  img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  text: "Perabotan Interior",
+                },
 
-              {
-                img: "https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                text: "Seni dan Dekorasi",
-              },
-            ].map((item, index) => (
-              <div className="me-2 col-span-12 lg:col-span-4">
-                <Slide key={index} img={item.img}>
-                  {item.text}
-                </Slide>
-              </div>
-            ))}
+                {
+                  img: "https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                  text: "Seni dan Dekorasi",
+                },
+
+                // {
+                //   img: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWNzfGVufDB8fDB8fHww",
+                //   text: "Elektronik dan Aksesoris",
+                // },
+              ].map((item, index) => (
+                <div className="col-span-12 md:col-span-4">
+                  <Slide key={index} img={item.img}>
+                    {item.text}
+                  </Slide>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-16">
+            {/* Heading to grab attention */}
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold mb-2">
+                Lihat Produk Terbaru Kami
+              </h2>
+              <h4 className="text-sm opacity-50">
+                Cepat beli sebelum kehabisan!
+              </h4>
+            </div>
+
+            {/* Products */}
+            <div className="flex overflow-x-scroll w-full">
+              {[
+                {
+                  img: "https://images.unsplash.com/photo-1591799265444-d66432b91588?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8fDA%3D",
+                  price: 2500000,
+                  name: "Ryzen CPU",
+                },
+                {
+                  img: "https://images.unsplash.com/photo-1648737966614-55e58b5e3caf?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGVsZWN0cm9uaWNzfGVufDB8fDB8fHww",
+                  price: 1200000,
+                  name: "Laptop",
+                },
+                {
+                  img: "https://images.unsplash.com/photo-1671418285899-58fb1471c038?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGVsZWN0cm9uaWNzfGVufDB8fDB8fHww",
+                  price: 800000,
+                  name: "Android Phone",
+                },
+                {
+                  img: "https://images.unsplash.com/photo-1620856902651-ce18d6d31d42?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZWxlY3Ryb25pY3N8ZW58MHx8MHx8fDA%3D",
+                  price: 1500000,
+                  name: "iPhone",
+                },
+                {
+                  img: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWNzfGVufDB8fDB8fHww",
+                  price: 500000,
+                  name: "4K Monitor",
+                },
+                {
+                  img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dGVjaHxlbnwwfHwwfHx8MA%3D%3D",
+                  price: 3000000,
+                  name: "AI Assistant",
+                },
+              ].map((item, index) => (
+                <div className="w-max me-4">
+                  <Product key={index} img={item.img} price={item.price}>
+                    {item.name}
+                  </Product>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </main>
