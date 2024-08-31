@@ -97,11 +97,6 @@ export default function App() {
           <Button color="white" img="Filter.svg" />
           <form
             className="flex w-full items-center px-4 py-2 space-x-4 bg-white rounded-full hover:cursor-text text-sm relative"
-            // onClick={(e) => {
-            //   if (!categoryRef.current?.contains(e.target as Node)) {
-            //     searchRef.current?.focus();
-            //   }
-            // }}
             onSubmit={(e) => e.preventDefault()}
           >
             <input
@@ -114,7 +109,7 @@ export default function App() {
             <img
               src="Search.svg"
               alt="Search icon"
-              className="size-6 opacity-50 absolute end-4"
+              className="size-6 opacity-50 absolute end-8"
             />
           </form>
         </div>
@@ -123,8 +118,8 @@ export default function App() {
       {/* Main content */}
       <main className="w-full flex justify-center p-8">
         <div className="container">
-          {/* Slides */}
-          <div className="mb-16">
+          {/* Editor choices */}
+          <section className="mb-16">
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-2">Editor Choices</h2>
               <h4 className="text-sm opacity-50">
@@ -153,16 +148,16 @@ export default function App() {
                 //   text: "Elektronik dan Aksesoris",
                 // },
               ].map((item, index) => (
-                <div className="col-span-12 md:col-span-4">
-                  <Slide key={index} img={item.img}>
+                <div key={index} className="col-span-12 md:col-span-4">
+                  <Slide img={item.img}>
                     {item.text}
                   </Slide>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
 
-          <div className="mb-16">
+          <section className="mb-16">
             {/* Heading to grab attention */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-2">
@@ -173,7 +168,7 @@ export default function App() {
               </h4>
             </div>
 
-            {/* Products */}
+            {/* Latest products */}
             <div className="flex overflow-x-scroll w-full">
               {[
                 {
@@ -207,14 +202,68 @@ export default function App() {
                   name: "AI Assistant",
                 },
               ].map((item, index) => (
-                <div className="w-max me-4">
-                  <Product key={index} img={item.img} price={item.price}>
+                <div key={index} className="w-max me-4">
+                  <Product img={item.img} price={item.price}>
                     {item.name}
                   </Product>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
+
+          {/* Newsletter signup */}
+          <section className="mb-16 p-8 bg-[#5959D9] text-white rounded-lg">
+            <h2 className="text-2xl font-bold mb-2">
+              Ingin penawaran eksklusif dan cuplikan menarik? 🤫
+            </h2>
+            <p className="text-md">
+              Daftar ke buletin kami dan jadilah yang pertama mengetahuinya:
+            </p>
+            <ul className="text-md list-disc ms-6 mt-2">
+              <li>Penjualan kilat dan penawaran khusus 🤑</li>
+              <li>Peluncuran produk baru ✨</li>
+              <li>Tips and tricks 💡</li>
+              <li>Cuplikan di balik layar 👀</li>
+            </ul>
+
+            <br />
+
+            <form
+              onSubmit={(e) => {
+              e.preventDefault();
+
+              const formData = new FormData();
+              formData.append("email", e.currentTarget.email.value);
+
+              alert("Email anda: " + formData.get("email"));
+            }}
+          >
+            <div className="flex w-full items-center px-4 py-2 space-x-4 bg-white rounded-full hover:cursor-text text-sm relative">
+
+            <input
+              type="text"
+              name="email"
+              placeholder="Masukkan email di sini..."
+              className="px-4 py-2 border-0 rounded-full focus:outline-none w-full"
+            />
+
+            <div className="hidden md:block absolute end-4">
+              <Button color="primary" textColor="white">Langganan</Button>
+            </div>
+            </div>
+
+            <br />
+            <div className="md:hidden">
+
+            <Button xcss={{ width: "100%" }} color="primary" textColor="white">Langganan</Button>
+            </div>
+          </form>
+
+          {/* Email will not be processed in demo warning */}
+            <p className="text-md text-white bg-red-500 p-4">
+              ⚠ Perhatian: Depository masih dalam proses demo, email Anda tidak akan diproses, diingat, maupun digunakan. Anda tidak akan menerima buletin dari kami.
+            </p>
+          </section>
         </div>
       </main>
 
