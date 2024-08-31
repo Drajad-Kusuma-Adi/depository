@@ -162,7 +162,7 @@ export function Button({
         padding: color !== "transparent" ? "0.5rem 2rem" : "0.25rem 0.5rem",
         ...xcss,
       }}
-      className={`${color === "transparent" && "scale-100"} transition duration-300`}
+      className={`${color === "transparent" && "scale-100"} transition duration-300 hover:opacity-75`}
     >
       {img && <img src={img} className="size-6 me-2" />}
       {children}
@@ -170,14 +170,22 @@ export function Button({
   );
 }
 
-export const Accordion = ({ title, children }: { title: string; children: React.ReactNode }) => {
+export function Accordion({
+  title,
+  children,
+  opened = false,
+}: {
+  title: string;
+  children: React.ReactNode;
+  opened?: boolean;
+}) {
   const accordionBtnRef = React.useRef<HTMLButtonElement>(null);
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(opened);
 
   return (
     <div className="relative overflow-hidden w-full">
       <button
-      ref={accordionBtnRef}
+        ref={accordionBtnRef}
         onClick={(e) => {
           setIsOpen(!isOpen);
 
@@ -188,12 +196,12 @@ export const Accordion = ({ title, children }: { title: string; children: React.
           flex
           items-center
           justify-between
-          px-4
-          py-3
+          px-8
+          py-4
           rounded-full
-          bg-gray-100
-          hover:bg-gray-200
-          transition-colors
+          ${isOpen ? "bg-primary" : "bg-gray-100"}
+          ${isOpen ? "text-white" : ""}
+          transition
           duration-300
           relative
           overflow-hidden
@@ -203,15 +211,14 @@ export const Accordion = ({ title, children }: { title: string; children: React.
         <svg
           className={`
             size-4
-            transform
-            ${isOpen ? 'rotate-180' : ''}
-            transition-transform
+            ${isOpen ? "rotate-180" : ""}
+            transition
             duration-300
           `}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke="currentColor"
+          stroke={isOpen ? "#FFFFFF" : "#000000"}
         >
           <path
             strokeLinecap="round"
@@ -221,9 +228,7 @@ export const Accordion = ({ title, children }: { title: string; children: React.
           />
         </svg>
       </button>
-      <div className={`px-4 py-3 bg-white rounded-b-pill transition-all duration-300 ${isOpen ? '' : '-translate-y-24'}`}>
-        {children}
-      </div>
+      {isOpen && <div className={`px-4 py-3 bg-white`}>{children}</div>}
     </div>
   );
-};
+}

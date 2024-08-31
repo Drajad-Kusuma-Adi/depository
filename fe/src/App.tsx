@@ -75,7 +75,6 @@ export default function App() {
       {/* Header */}
       <header className="bg-[#FFF9F3] p-8 w-full">
         <div className="flex justify-between items-center">
-          {/* <img src="Logo.svg" alt="Depository logo" className="h-8" /> */}
           {/* TODO: Toggle sidebar for mobile */}
           <h1 className="text-primary font-bold text-2xl">Depository</h1>
 
@@ -142,11 +141,6 @@ export default function App() {
                   img: "https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                   text: "Seni dan Dekorasi",
                 },
-
-                // {
-                //   img: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGVsZWN0cm9uaWNzfGVufDB8fDB8fHww",
-                //   text: "Elektronik dan Aksesoris",
-                // },
               ].map((item, index) => (
                 <div key={index} className="col-span-12 md:col-span-4">
                   <Slide img={item.img}>{item.text}</Slide>
@@ -262,23 +256,64 @@ export default function App() {
                 </Button>
               </div>
             </form>
-
-            {/* Email will not be processed in demo warning */}
-            <p className="text-md text-white bg-red-500 p-4">
-              ⚠ Perhatian: Depository masih dalam proses demo, email Anda tidak
-              akan diproses, diingat, maupun digunakan. Anda tidak akan menerima
-              buletin dari kami.
-            </p>
           </section>
         </div>
       </main>
 
       {/* Footer */}
       <footer className="w-full p-8 border-t border-grey-500">
-        <div className="w-full flex space-x-4">
-        <Accordion title="test">test</Accordion>
-        <Accordion title="test">test</Accordion>
-        <Accordion title="test">test</Accordion>
+        {/* Row 1: Company info */}
+        <div className="w-full flex flex-col lg:flex-row">
+          <div>
+            <h1 className="text-primary font-bold text-2xl">Depository</h1>
+            <br />
+            <p>Kota Barujadi, Jawa Selatan, Indonesia</p>
+            <br />
+            <div className="flex flex-wrap w-full space-x-4">
+              <a href="#">
+                <img src="Facebook.svg" alt="size-6" />
+              </a>
+              <a href="#">
+                <img src="Twitter.svg" alt="size-6" />
+              </a>
+              <a href="#">
+                <img src="LinkedIn.svg" alt="size-6" />
+              </a>
+            </div>
+          </div>
+
+          <br className="lg:hidden" />
+
+          <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
+            <Accordion opened title="Tentang Kami">
+              <Button>Perusahaan</Button>
+              <hr className="my-2" />
+              <Button>Ketentuan Pemakaian</Button>
+              <hr className="my-2" />
+              <Button>Kebijakan Privasi</Button>
+              <hr className="my-2" />
+              <Button>Investor</Button>
+            </Accordion>
+            <Accordion opened title="Kemitraan">
+              <Button>Mitra Kami</Button>
+              <hr className="my-2" />
+              <Button>Menjadi Penjual</Button>
+              <hr className="my-2" />
+              <Button>Forum</Button>
+            </Accordion>
+            <Accordion opened title="Bantuan">
+              <Button>Pusat Bantuan</Button>
+              <hr className="my-2" />
+              <Button>Keamanan</Button>
+            </Accordion>
+          </div>
+        </div>
+
+        <br />
+
+        {/* Row 2: Copyright */}
+        <div className="w-full flex">
+          <h6 className="text-sm">© 2024 Depository</h6>
         </div>
       </footer>
     </>
