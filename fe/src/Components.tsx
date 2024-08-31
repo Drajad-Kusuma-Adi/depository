@@ -169,3 +169,61 @@ export function Button({
     </button>
   );
 }
+
+export const Accordion = ({ title, children }: { title: string; children: React.ReactNode }) => {
+  const accordionBtnRef = React.useRef<HTMLButtonElement>(null);
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  return (
+    <div className="relative overflow-hidden w-full">
+      <button
+      ref={accordionBtnRef}
+        onClick={(e) => {
+          setIsOpen(!isOpen);
+
+          Ripple(e, accordionBtnRef.current!, "white");
+        }}
+        className={`
+          w-full
+          flex
+          items-center
+          justify-between
+          px-4
+          py-3
+          rounded-full
+          bg-gray-100
+          hover:bg-gray-200
+          transition-colors
+          duration-300
+          relative
+          overflow-hidden
+        `}
+      >
+        <span>{title}</span>
+        <svg
+          className={`
+            size-4
+            transform
+            ${isOpen ? 'rotate-180' : ''}
+            transition-transform
+            duration-300
+          `}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+      <div className={`px-4 py-3 bg-white rounded-b-pill transition-all duration-300 ${isOpen ? '' : '-translate-y-24'}`}>
+        {children}
+      </div>
+    </div>
+  );
+};

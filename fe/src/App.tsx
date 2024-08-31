@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Ripple } from "./Components";
+import { Button, Accordion, Ripple } from "./Components";
 
 function Slide({ img, children }: { img: string; children: React.ReactNode }) {
   const slideRef = React.useRef<HTMLButtonElement | null>(null);
@@ -149,9 +149,7 @@ export default function App() {
                 // },
               ].map((item, index) => (
                 <div key={index} className="col-span-12 md:col-span-4">
-                  <Slide img={item.img}>
-                    {item.text}
-                  </Slide>
+                  <Slide img={item.img}>{item.text}</Slide>
                 </div>
               ))}
             </div>
@@ -230,45 +228,59 @@ export default function App() {
 
             <form
               onSubmit={(e) => {
-              e.preventDefault();
+                e.preventDefault();
 
-              const formData = new FormData();
-              formData.append("email", e.currentTarget.email.value);
+                const formData = new FormData();
+                formData.append("email", e.currentTarget.email.value);
 
-              alert("Email anda: " + formData.get("email"));
-            }}
-          >
-            <div className="flex w-full items-center px-4 py-2 space-x-4 bg-white rounded-full hover:cursor-text text-sm relative">
+                alert("Email anda: " + formData.get("email"));
+              }}
+            >
+              <div className="flex w-full items-center px-4 py-2 space-x-4 bg-white rounded-full hover:cursor-text text-sm relative">
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="Masukkan email di sini..."
+                  className="px-4 py-2 border-0 rounded-full focus:outline-none w-full"
+                />
 
-            <input
-              type="text"
-              name="email"
-              placeholder="Masukkan email di sini..."
-              className="px-4 py-2 border-0 rounded-full focus:outline-none w-full"
-            />
+                <div className="hidden md:block absolute end-4">
+                  <Button color="primary" textColor="white">
+                    Langganan
+                  </Button>
+                </div>
+              </div>
 
-            <div className="hidden md:block absolute end-4">
-              <Button color="primary" textColor="white">Langganan</Button>
-            </div>
-            </div>
+              <br />
+              <div className="md:hidden">
+                <Button
+                  xcss={{ width: "100%" }}
+                  color="primary"
+                  textColor="white"
+                >
+                  Langganan
+                </Button>
+              </div>
+            </form>
 
-            <br />
-            <div className="md:hidden">
-
-            <Button xcss={{ width: "100%" }} color="primary" textColor="white">Langganan</Button>
-            </div>
-          </form>
-
-          {/* Email will not be processed in demo warning */}
+            {/* Email will not be processed in demo warning */}
             <p className="text-md text-white bg-red-500 p-4">
-              ⚠ Perhatian: Depository masih dalam proses demo, email Anda tidak akan diproses, diingat, maupun digunakan. Anda tidak akan menerima buletin dari kami.
+              ⚠ Perhatian: Depository masih dalam proses demo, email Anda tidak
+              akan diproses, diingat, maupun digunakan. Anda tidak akan menerima
+              buletin dari kami.
             </p>
           </section>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className=""></footer>
+      <footer className="w-full p-8 border-t border-grey-500">
+        <div className="w-full flex space-x-4">
+        <Accordion title="test">test</Accordion>
+        <Accordion title="test">test</Accordion>
+        <Accordion title="test">test</Accordion>
+        </div>
+      </footer>
     </>
   );
 }
