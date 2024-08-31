@@ -8,25 +8,23 @@ export default function App() {
   return (
     <>
       {/* Header */}
-      <header className="bg-[#FFF9F3] p-8">
+      <header className="bg-[#FFF9F3] p-8 w-full">
         {/* Row 1 */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-8">
           {/* <img src="Logo.svg" alt="Depository logo" className="h-8" /> */}
-          <h1 className="text-primary font-bold text-2xl">Depository</h1>
+          <h1 className="text-primary mb-4 lg:mb-0 font-bold text-2xl">Depository</h1>
 
           <div className="flex items-center space-x-2">
             <Button color="primary" textColor="white">
               Help
             </Button>
             <Button img="Person.svg">Account</Button>
-            <Button img="Bag.svg">Shopping</Button>
+            <Button img="Bag.svg">Bag</Button>
           </div>
         </div>
 
         {/* Row 2 */}
-        <div className="flex space-x-4">
-          <Button color="white" img="Filter.svg" />
-
+        <div className="flex flex-col lg:flex-row">
           <form
             className="flex w-full items-center px-4 py-2 space-x-4 bg-white rounded-full hover:cursor-text text-sm relative"
             onClick={() => {
@@ -35,16 +33,22 @@ export default function App() {
                 searchRef.current?.focus();
               }
             }}
+            onSubmit={(e) => e.preventDefault()}
           >
+            <div className="hidden lg:flex items-center space-x-4">
+
+            <Button color="#E5E7EB" img="Filter.svg" />
+
             <select
               ref={categoryRef}
-              className="px-4 py-1 bg-gray-200 border-r-[12px] border-gray-200 rounded-full focus:outline-none hover:cursor-pointer transition duration-300 hover:bg-gray-300 hover:border-gray-300"
+              className="lg:mb-0 px-4 py-2 bg-gray-200 border-r-[12px] border-gray-200 rounded-full focus:outline-none hover:cursor-pointer transition duration-300 hover:bg-gray-300 hover:border-gray-300 w-28"
             >
               <option value="All">All</option>
               <option value="Category 1">Category 1</option>
               <option value="Category 2">Category 2</option>
               <option value="Category 3">Category 3</option>
             </select>
+            </div>
             <input
               ref={searchRef}
               type="text"
