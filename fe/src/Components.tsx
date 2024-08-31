@@ -13,6 +13,17 @@ const colors: Record<string, string> = {
 // COMPONENT EFFECTS //
 // ----------------- //
 
+/**
+ * Calculate the contrast ratio between two hex colors.
+ *
+ * Contrast ratio is a value between 1 and 21, where 1 is the lowest
+ * contrast and 21 is the highest. The recommended contrast ratio for
+ * body text is at least 4.5.
+ *
+ * @param {string} color1 The first hex color to compare.
+ * @param {string} color2 The second hex color to compare.
+ * @returns {number} The contrast ratio between the two colors.
+ */
 function getContrastRatio(color1: string, color2: string): number {
   // Convert hex codes to RGB values
   const rgb1 = hexToRgb(color1);
@@ -29,8 +40,16 @@ function getContrastRatio(color1: string, color2: string): number {
   );
 }
 
+/**
+ * Convert a hex color code to an RGB object.
+ *
+ * @param {string} hex The hex color code to convert.
+ * @returns {{ r: number; g: number; b: number }} The RGB object.
+ */
 function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  // Regex to convert hex codes to RGB values
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
   return result
     ? {
         r: parseInt(result[1], 16),
@@ -40,6 +59,14 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
     : { r: 0, g: 0, b: 0 };
 }
 
+/**
+ * Create a ripple effect on a button.
+ *
+ * @param {React.MouseEvent<HTMLButtonElement>} e The event that triggered
+ *   the ripple effect.
+ * @param {HTMLButtonElement} button The button to create the ripple effect on.
+ * @param {string} bgColor The background color of the button.
+ */
 export function Ripple(
   e: React.MouseEvent<HTMLButtonElement>,
   button: HTMLButtonElement,
@@ -77,6 +104,18 @@ export function Ripple(
 // COMPONENTS //
 // ---------- //
 
+/**
+ * Create a button with a ripple effect.
+ *
+ * @param {Object} props The props for the button.
+ * @param {string} [props.color=transparent] The background color of the button.
+ * @param {string} [props.textColor=black] The text color of the button.
+ * @param {string} [props.img] The image URL for the button icon.
+ * @param {React.CSSProperties} [props.xcss] Additional CSS styles for the button.
+ * @param {React.ReactNode} [props.children] The children nodes of the button.
+ * @param {() => void} [props.onClick] The function to call when the button is clicked.
+ * @returns {JSX.Element} The button element.
+ */
 export function Button({
   color = "transparent",
   textColor = "black",
@@ -94,30 +133,21 @@ export function Button({
 }) {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
 
+  /**
+   * Create the ripple effect for the button.
+   *
+   * @param {React.MouseEvent<HTMLButtonElement>} e The event that triggered the ripple effect.
+   */
   function ripple(e: React.MouseEvent<HTMLButtonElement>) {
     Ripple(e, buttonRef.current!, color);
-  }
-
-  function bouncy() {
-    buttonRef.current?.classList.add("scale-95");
-
-    setTimeout(() => {
-      buttonRef.current?.classList.remove("scale-95");
-    }, 300);
   }
 
   return (
     <button
       ref={buttonRef}
       onClick={(e) => {
-        if (color !== "transparent") {
-          ripple(e);
-        } else {
-          bouncy();
-        }
-
+        ripple(e);
         if (!onClick) return;
-
         onClick();
       }}
       style={{
