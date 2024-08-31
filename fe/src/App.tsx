@@ -1,59 +1,82 @@
 import React from "react";
-import { Button } from "./Components";
+import { Button, Ripple } from "./Components";
+
+function Slide({
+  img,
+  children,
+}: {
+  img: string,
+  children: React.ReactNode,
+}) {
+  const slideRef = React.useRef<HTMLButtonElement | null>(null);
+  return (
+    <>
+      <button
+        ref={slideRef}
+        style={{
+          overflow: 'hidden',
+          backgroundImage: `url(${img})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          width: '24rem',
+          height: '12rem',
+          position: 'relative',
+          borderRadius: "8px",
+        }}
+        onClick={(e) => {
+          Ripple(e, slideRef.current!, '#FFFFFF')
+        }}
+      >
+        <p className="text-white absolute start-4 bottom-4">
+          {children}
+        </p>
+      </button>
+    </>
+  );
+}
 
 export default function App() {
   const searchRef = React.useRef<HTMLInputElement>(null);
-  const categoryRef = React.useRef<HTMLSelectElement>(null);
 
   return (
     <>
+      {/* Sidebar (Mobile) */}
+      {/* TODO: */}
+
       {/* Header */}
       <header className="bg-[#FFF9F3] p-8 w-full">
-        {/* Row 1 */}
-        <div className="flex flex-col lg:flex-row justify-between items-center mb-8">
+        <div className="flex justify-between items-center">
           {/* <img src="Logo.svg" alt="Depository logo" className="h-8" /> */}
-          <h1 className="text-primary mb-4 lg:mb-0 font-bold text-2xl">Depository</h1>
+          {/* TODO: Toggle sidebar for mobile */}
+          <h1 className="text-primary font-bold text-2xl">Depository</h1>
 
+          {/* These are put on sidebar on mobile */}
           <div className="flex items-center space-x-2">
-            <Button color="primary" textColor="white">
-              Help
-            </Button>
-            <Button img="Person.svg">Account</Button>
-            <Button img="Bag.svg">Bag</Button>
+            <span className="hidden lg:block"><Button color="primary" textColor="white">Help</Button></span>
+            <Button img="Person.svg"><span className="hidden lg:block">Account</span></Button>
+            <Button img="Bag.svg"><span className="hidden lg:block">Shopping</span></Button>
           </div>
         </div>
 
-        {/* Row 2 */}
-        <div className="flex flex-col lg:flex-row">
+        <br />
+
+        <div className="flex space-x-4">
+          <Button color="white" img="Filter.svg" />
           <form
             className="flex w-full items-center px-4 py-2 space-x-4 bg-white rounded-full hover:cursor-text text-sm relative"
-            onClick={() => {
-              if (!categoryRef.current?.contains(event.target)) {
-                // Deprecation is just a suggestion
-                searchRef.current?.focus();
-              }
-            }}
+            // onClick={(e) => {
+            //   if (!categoryRef.current?.contains(e.target as Node)) {
+            //     searchRef.current?.focus();
+            //   }
+            // }}
             onSubmit={(e) => e.preventDefault()}
           >
-            <div className="hidden lg:flex items-center space-x-4">
-
-            <Button color="#E5E7EB" img="Filter.svg" />
-
-            <select
-              ref={categoryRef}
-              className="lg:mb-0 px-4 py-2 bg-gray-200 border-r-[12px] border-gray-200 rounded-full focus:outline-none hover:cursor-pointer transition duration-300 hover:bg-gray-300 hover:border-gray-300 w-28"
-            >
-              <option value="All">All</option>
-              <option value="Category 1">Category 1</option>
-              <option value="Category 2">Category 2</option>
-              <option value="Category 3">Category 3</option>
-            </select>
-            </div>
             <input
               ref={searchRef}
               type="text"
               placeholder="Search..."
-              className="px-4 py-2 border-0 rounded-full focus:outline-none"
+              className="px-4 py-2 border-0 rounded-full focus:outline-none w-full"
             />
 
             <img
@@ -66,7 +89,35 @@ export default function App() {
       </header>
 
       {/* Main content */}
-      <main className=""></main>
+      <main className="w-full flex justify-center p-8">
+        <div className="container">
+
+        <br />
+
+          {/* Slides */}
+          <div className="flex space-x-4 w-full">
+          {
+            [
+              {
+                img: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1298&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                text: 'Clothing and Shoes'
+              },
+
+              {
+                img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1380&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                text: 'Home and Living'
+              },
+
+              {
+                img: 'https://images.unsplash.com/photo-1533158326339-7f3cf2404354?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                text: 'Art and Decor'
+              }
+            ]
+            .map((item, index) => <Slide key={index} img={item.img} >{item.text}</Slide>)
+          }
+          </div>
+        </div>
+      </main>
 
       {/* Footer */}
       <footer className=""></footer>
