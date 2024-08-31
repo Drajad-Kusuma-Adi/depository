@@ -13,7 +13,7 @@ function Slide({ img, children }: { img: string; children: React.ReactNode }) {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          width: "24rem",
+          width: "100%",
           height: "12rem",
           position: "relative",
           borderRadius: "8px",
@@ -87,10 +87,8 @@ export default function App() {
       {/* Main content */}
       <main className="w-full flex justify-center p-8">
         <div className="container">
-          <br />
-
           {/* Slides */}
-          <div className="flex space-x-4 w-full">
+          <div className="grid grid-cols-12">
             {[
               {
                 img: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=1298&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -107,9 +105,11 @@ export default function App() {
                 text: "Seni dan Dekorasi",
               },
             ].map((item, index) => (
-              <Slide key={index} img={item.img}>
-                {item.text}
-              </Slide>
+              <div className="me-2 col-span-12 lg:col-span-4">
+                <Slide key={index} img={item.img}>
+                  {item.text}
+                </Slide>
+              </div>
             ))}
           </div>
         </div>
