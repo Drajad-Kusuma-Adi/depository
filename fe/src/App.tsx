@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Accordion, Ripple } from "./Components";
+import { Button, Accordion, Ripple, Modal } from "./Components";
 
 function Slide({ img, children }: { img: string; children: React.ReactNode }) {
   const slideRef = React.useRef<HTMLButtonElement | null>(null);
@@ -67,10 +67,51 @@ function Product({
 export default function App() {
   const searchRef = React.useRef<HTMLInputElement>(null);
 
+  const [accountModalOpen, setAccountModalOpen] = React.useState(false);
+
   return (
     <>
       {/* Sidebar (Mobile) */}
       {/* TODO: */}
+
+      {/* Account modal */}
+      <Modal isOpen={accountModalOpen} setIsOpen={setAccountModalOpen}>
+        <form className="p-4">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Login</h2>
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="Email"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="Password"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+          >
+            Login
+          </button>
+        </form>
+      </Modal>
 
       {/* Header */}
       <header className="bg-[#FFF9F3] p-8 w-full">
@@ -81,7 +122,10 @@ export default function App() {
           {/* These are put on sidebar on mobile */}
           <div className="flex items-center space-x-2">
             {/* <span className="hidden lg:block"><Button color="primary" textColor="white">Bantuan</Button></span> */}
-            <Button img="Person.svg">
+            <Button
+              onClick={() => setAccountModalOpen(!accountModalOpen)}
+              img="Person.svg"
+            >
               <span className="hidden lg:block">Akun</span>
             </Button>
             <Button img="Bag.svg">

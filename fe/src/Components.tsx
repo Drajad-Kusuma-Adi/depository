@@ -1,4 +1,5 @@
 import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import "./index.css";
 
 // List of colors used in the app
@@ -230,5 +231,54 @@ export function Accordion({
       </button>
       {isOpen && <div className={`px-4 py-3 bg-white`}>{children}</div>}
     </div>
+  );
+}
+
+export function Modal({
+  bgColor = "white",
+  children,
+  isOpen,
+  setIsOpen,
+}: {
+  bgColor?: string;
+  children: React.ReactNode;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  return (
+    <>
+      {/* Darkening background */}
+      <div
+        style={{ opacity: isOpen ? 0.5 : 0 }}
+        className="fixed w-screen h-screen bg-black pointer-events-none z-50"
+      />
+
+      {/* Modal content */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed w-screen h-screen z-50 flex justify-center items-center">
+            <motion.div
+              initial={{ opacity: 0, y: -100 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -100 }}
+              style={{ backgroundColor: bgColor }}
+              className="size-fit min-w-[70vw] lg:min-w-[35vw] p-4 rounded-lg shadow-lg z-50"
+            >
+              {/* Close button */}
+              <Button
+                xcss={{ float: "right" }}
+                onClick={() => setIsOpen(false)}
+              >
+                <div className="opacity-50">✕</div>
+              </Button>
+
+              <br />
+
+              {children}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
