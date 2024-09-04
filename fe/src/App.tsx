@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Accordion, Ripple, Modal } from "./Components";
+import { API } from "./utils/API";
+import { handleHttpError } from "./utils/ErrorHandlers";
 
 function Slide({ img, children }: { img: string; children: React.ReactNode }) {
   const slideRef = React.useRef<HTMLButtonElement | null>(null);
@@ -69,6 +71,24 @@ export default function App() {
 
   const [accountModalOpen, setAccountModalOpen] = React.useState(false);
 
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    try {
+      // Construct form data to send
+      const formData = new FormData(e.currentTarget);
+
+      // Send login request to server
+      const res = await API.get(`/auth?email=${formData.get("email")}&password=${formData.get("password")}`);
+
+      console.log(res);
+    } catch (err) {
+      const errmess = handleHttpError(err);
+      console.log(errmess);
+      alert(errmess);
+    }
+  }
+
   return (
     <>
       {/* Sidebar (Mobile) */}
@@ -76,7 +96,7 @@ export default function App() {
 
       {/* Account modal */}
       <Modal isOpen={accountModalOpen} setIsOpen={setAccountModalOpen}>
-        <form className="p-4">
+        <form onSubmit={handleLogin} className="p-4">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Login</h2>
           <div className="mb-4">
             <label
@@ -87,6 +107,7 @@ export default function App() {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="Email"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
             />
@@ -100,6 +121,7 @@ export default function App() {
             </label>
             <input
               type="password"
+              name="password"
               placeholder="Password"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
             />
