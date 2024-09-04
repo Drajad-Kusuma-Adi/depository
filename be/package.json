@@ -1,0 +1,16 @@
+{
+  "name": "be",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts"
+  },
+  "dependencies": {
+    "hono": "^4.5.10",
+    "pocketbase": "^0.21.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240529.0",
+    "@types/bcrypt": "^5.0.2",
+    "wrangler": "^3.57.2"
+  }
+}

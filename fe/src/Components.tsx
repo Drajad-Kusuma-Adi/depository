@@ -106,7 +106,7 @@ export function Ripple(
 // ---------- //
 
 /**
- * Create a button with a ripple effect.
+ * Creates a button.
  *
  * @param {Object} props The props for the button.
  * @param {string} [props.color=transparent] The background color of the button.
@@ -171,6 +171,15 @@ export function Button({
   );
 }
 
+/**
+ * Creates an accordion.
+ *
+ * @param {Object} props The props for the button.
+ * @param {string} [props.title] The title of the button.
+ * @param {React.ReactNode} [props.children] The children nodes of the button.
+ * @param {boolean} [props.opened=false] Whether the accordion is opened by default.
+ * @returns {JSX.Element} The button element.
+ */
 export function Accordion({
   title,
   children,
@@ -234,6 +243,16 @@ export function Accordion({
   );
 }
 
+/**
+ * Creates a modal.
+ *
+ * @param {Object} props The props for the modal.
+ * @param {string} [props.bgColor=white] The background color of the modal.
+ * @param {React.ReactNode} props.children The children nodes of the modal.
+ * @param {boolean} props.isOpen True if the modal is open, false otherwise.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setIsOpen The function to set the isOpen state.
+ * @returns {JSX.Element} The modal element.
+ */
 export function Modal({
   bgColor = "white",
   children,
@@ -282,3 +301,4 @@ export function Modal({
     </>
   );
 }
+
